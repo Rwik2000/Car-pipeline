@@ -9,7 +9,7 @@ class Vision_Control():
     def __init__(self,):
         self.traj_model = torch.load("./models/trajec_model_80.pt")
         self.enc_model = torch.load("./models/vae_model_90.pt")
-        self.f2t_model = torch.load("./models/F2T_90.pt")
+        self.f2t_model = torch.load("./models/F2T_100.pt")
         self.enc_model.bs = 1
         self.f2t_model.bs = 1
 
@@ -21,7 +21,7 @@ class Vision_Control():
         self.numBezPts = 20 #number of bezier points in the output
         self.time_taken = 0
 
-        self.showOutput = 0
+        self.showOutput = 1
         self.waitkey = 0
         
 
