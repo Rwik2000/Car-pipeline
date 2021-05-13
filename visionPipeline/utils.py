@@ -1,8 +1,5 @@
-import cv2
 import numpy as np
 from scipy.linalg import pascal
-import pickle
-import os
 
 def find_bezier_trajectory(coordinates, points):
     n=len(coordinates)

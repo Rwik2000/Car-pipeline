@@ -3,8 +3,10 @@ import cv2
 import torch
 import time
 
-from utils import find_bezier_trajectory
+from .utils import find_bezier_trajectory
 
+def processCamImage():
+    pass
 class Vision_Control():
     def __init__(self,):
         self.traj_model = torch.load("./models/trajec_model_80.pt")
@@ -87,10 +89,10 @@ class Vision_Control():
         self.time_taken = time.time() - st_time
         return out
 
-mod = Vision_Control()
-img_dir = "a_2.jpg"
-_og_img  = cv2.imread(img_dir)
-# mod.showOutput = 1
-for i in range(10):
-    mod.getTrackPoints(_og_img)
-    print(mod.time_taken)
+# mod = Vision_Control()
+# img_dir = "img_196.jpg"
+# _og_img  = cv2.imread(img_dir)
+# # mod.showOutput = 1
+# for i in range(10):
+#     mod.getTrackPoints(_og_img)
+#     print(mod.time_taken)
