@@ -2,23 +2,22 @@ import numpy as np
 import cv2
 import torch
 import time
-
+from .src.NET_enc2path import encodeToTraj
+from .src.NET_f2t import f2t_VAE
+from .src.NET_topVAE import topview_VAE
 from .utils import find_bezier_trajectory
 
 def processCamImage():
     pass
 class Vision_Control():
     def __init__(self,):
-        self.traj_model = torch.load("./models/trajec_model_80.pt")
-        self.enc_model = torch.load("./models/vae_model_90.pt")
-        self.f2t_model = torch.load("./models/F2T_100.pt")
-        self.enc_model.bs = 1
-        self.f2t_model.bs = 1
 
-        if torch.cuda.is_available():
-            self.traj_model.cuda()
-            self.enc_model.cuda()
-            self.f2t_model.cuda()
+        self.traj_model = encodeToTraj(25).cuda()
+        self.traj_model.load_state_dict(torch.load("./visionPipeline/models/trajec_model.pth"))
+        self.enc_model = topview_VAE(152, 200, 25, 1).cuda()
+        self.enc_model.load_state_dict(torch.load("./visionPipeline/models/vae_model.pth"))
+        self.f2t_model = f2t_VAE(20,1,160,160,320).cuda()
+        self.f2t_model.load_state_dict(torch.load("./visionPipeline/models/f2t_model.pth"))
 
         self.numBezPts = 20 #number of bezier points in the output
         self.time_taken = 0
